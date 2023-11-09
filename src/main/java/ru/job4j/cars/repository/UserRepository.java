@@ -45,7 +45,7 @@ public class UserRepository {
         try {
             session.beginTransaction();
             session.createQuery(
-                            "DELETE Item WHERE id = :fId")
+                            "DELETE User WHERE id = :fId")
                     .setParameter("fId", userId)
                     .executeUpdate();
             session.getTransaction().commit();
@@ -76,7 +76,7 @@ public class UserRepository {
         Optional<User> result = Optional.empty();
         try {
             session.beginTransaction();
-            Query<User> query = session.createQuery("from Item where id = :fId", User.class)
+            Query<User> query = session.createQuery("from User where id = :fId", User.class)
                     .setParameter("fId", userId);
             result = query.uniqueResultOptional();
             session.getTransaction().commit();

@@ -2,18 +2,20 @@ package ru.job4j.cars.model;
 
 import lombok.*;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "auto_users")
+@Table(name = "price_history")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
-public class User {
+public class PriceHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    private String login;
-    private String password;
+    private long before;
+    private long after;
+    private LocalDateTime created;
 }
