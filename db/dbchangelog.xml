@@ -9,6 +9,5 @@
     <include file="scripts/update_004.sql" relativeToChangelogFile="true"/>
     <include file="scripts/002_ddl_create_auto_posts_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/003_ddl_create_price_history_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/update_005.sql" relativeToChangelogFile="true"/>
     <include file="scripts/004_ddl_create_participates_table.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
