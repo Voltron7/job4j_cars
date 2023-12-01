@@ -18,4 +18,7 @@ public class Owner {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToOne
+    @JoinColumn(name = "history_id")
+    private History history;
 }
