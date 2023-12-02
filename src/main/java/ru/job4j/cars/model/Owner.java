@@ -2,6 +2,8 @@ package ru.job4j.cars.model;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "owners")
@@ -18,7 +20,6 @@ public class Owner {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToOne
-    @JoinColumn(name = "history_id")
-    private History history;
+    @OneToMany(mappedBy = "owner")
+    private Set<History> history = new HashSet<>();
 }
