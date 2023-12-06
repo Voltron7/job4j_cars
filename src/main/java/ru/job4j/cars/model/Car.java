@@ -2,7 +2,9 @@ package ru.job4j.cars.model;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,6 +18,9 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
+    @OneToMany
+    @JoinColumn(name = "car_id")
+    private List<Photo> photos = new ArrayList<>();
     private String name;
     @ManyToOne
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "ENGINE_ID_FK"))
