@@ -17,7 +17,7 @@ public class Owner {
     @EqualsAndHashCode.Include
     private int id;
     private String name;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     @OneToMany(mappedBy = "owner")
