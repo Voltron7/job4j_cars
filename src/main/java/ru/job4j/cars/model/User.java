@@ -5,8 +5,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "auto_users")
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 public class User {

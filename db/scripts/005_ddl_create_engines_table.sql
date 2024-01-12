@@ -1,5 +1,5 @@
 create table if not exists engines
 (
-    id       serial primary key,
-    name     varchar not null
+    id   serial  primary key,
+    name varchar
 );

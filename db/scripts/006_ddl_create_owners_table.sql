@@ -1,6 +1,6 @@
 create table if not exists owners
 (
-    id       serial primary key,
-    name     varchar not null,
-    user_id int not null references auto_users(id)
+    id           serial primary key,
+    ownerName    varchar,
+    auto_user_id int references auto_users(id)
 );

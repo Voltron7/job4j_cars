@@ -13,14 +13,14 @@ import static org.assertj.core.api.Assertions.*;
 class SimpleOwnerRepositoryTest {
     private static StandardServiceRegistry registry;
     private static SimpleOwnerRepository simpleOwnerRepository;
-    private static UserRepository userRepository;
+    private static SimpleUserRepository simpleUserRepository;
 
     @BeforeAll
     public static void init() {
         registry = new StandardServiceRegistryBuilder().configure().build();
         SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         simpleOwnerRepository = new SimpleOwnerRepository(new CrudRepository(sessionFactory));
-        userRepository = new UserRepository(new CrudRepository(sessionFactory));
+        simpleUserRepository = new SimpleUserRepository(new CrudRepository(sessionFactory));
     }
 
     @AfterAll
@@ -34,9 +34,9 @@ class SimpleOwnerRepositoryTest {
         for (Owner owner : owners) {
             simpleOwnerRepository.deleteById(owner.getId());
         }
-        List<User> users = userRepository.findAllOrderById();
+        List<User> users = simpleUserRepository.findAllOrderById();
         for (User user : users) {
-            userRepository.delete(user.getId());
+            simpleUserRepository.delete(user.getId());
         }
     }
 
@@ -62,15 +62,15 @@ class SimpleOwnerRepositoryTest {
     public void whenAddNewOwnerThenUpdateItAndFindItsName() {
         var owner = getOwner();
         simpleOwnerRepository.save(owner);
-        owner.setName("newOwner");
+        owner.setOwnerName("newOwnerName");
         simpleOwnerRepository.update(owner);
         var updatedOwner = simpleOwnerRepository.findById(owner.getId()).get();
-        assertThat(updatedOwner.getName()).isEqualTo("newOwner");
+        assertThat(updatedOwner.getOwnerName()).isEqualTo("newOwnerName");
     }
 
     private Owner getOwner() {
         Owner owner = new Owner();
-        owner.setName("Owner");
+        owner.setOwnerName("OwnerName");
         owner.setUser(getUser());
         return owner;
     }
@@ -79,7 +79,7 @@ class SimpleOwnerRepositoryTest {
         User user = new User();
         user.setLogin("User");
         user.setPassword("password");
-        userRepository.create(user);
+        simpleUserRepository.create(user);
         return user;
     }
 }

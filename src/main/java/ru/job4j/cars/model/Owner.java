@@ -7,8 +7,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "owners")
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 public class Owner {
@@ -16,9 +14,9 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    private String name;
+    private String ownerName;
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "auto_user_id")
     private User user;
     @OneToMany(mappedBy = "owner")
     private Set<History> history = new HashSet<>();

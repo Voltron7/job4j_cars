@@ -20,5 +20,7 @@ public interface PostRepository {
 
     List<Post> findAllWithPhotos();
 
-    List<Post> findByCarName(String name);
+    List<Post> findByCarModel(String model);
+
+    boolean setStatus(Post post);
 }

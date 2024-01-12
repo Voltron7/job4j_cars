@@ -14,6 +14,8 @@ class SimpleCarRepositoryTest {
     private static StandardServiceRegistry registry;
     private static SimpleCarRepository simpleCarRepository;
     private static SimpleEngineRepository simpleEngineRepository;
+    private static SimpleUserRepository simpleUserRepository;
+    private static SimpleOwnerRepository simpleOwnerRepository;
 
     @BeforeAll
     public static void init() {
@@ -21,6 +23,8 @@ class SimpleCarRepositoryTest {
         SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         simpleCarRepository = new SimpleCarRepository(new CrudRepository(sessionFactory));
         simpleEngineRepository = new SimpleEngineRepository(new CrudRepository(sessionFactory));
+        simpleUserRepository = new SimpleUserRepository(new CrudRepository(sessionFactory));
+        simpleOwnerRepository = new SimpleOwnerRepository(new CrudRepository(sessionFactory));
     }
 
     @AfterAll
@@ -39,7 +43,6 @@ class SimpleCarRepositoryTest {
     @Test
     public void whenAddNewCarThenInCarRepositoryTheSameCar() {
         var car = getCar();
-        simpleCarRepository.save(car);
         var result = simpleCarRepository.findById(car.getId()).get();
         assertThat(result).isEqualTo(car);
     }
@@ -47,7 +50,6 @@ class SimpleCarRepositoryTest {
     @Test
     public void whenDeleteNewCarThenEmptyOptional() {
         var car = getCar();
-        simpleCarRepository.save(car);
         int id = car.getId();
         simpleCarRepository.deleteById(id);
         var result = simpleCarRepository.findById(id);
@@ -57,11 +59,10 @@ class SimpleCarRepositoryTest {
     @Test
     public void whenAddNewCarThenUpdateItAndFindItsName() {
         var car = getCar();
-        simpleCarRepository.save(car);
-        car.setName("newName");
+        car.setModel("newModel");
         simpleCarRepository.update(car);
         var updatedCar = simpleCarRepository.findById(car.getId()).get();
-        assertThat(updatedCar.getName()).isEqualTo("newName");
+        assertThat(updatedCar.getModel()).isEqualTo("newModel");
     }
 
     private Engine getEngine() {
@@ -73,8 +74,9 @@ class SimpleCarRepositoryTest {
 
     private Car getCar() {
         Car car = new Car();
-        car.setName("Name");
+        car.setModel("Model");
         car.setEngine(getEngine());
+        simpleCarRepository.save(car);
         return car;
     }
 }

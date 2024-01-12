@@ -17,7 +17,7 @@ class SimplePostRepositoryTest {
     private static SimplePhotoRepository simplePhotoRepository;
     private static SimpleCarRepository simpleCarRepository;
     private static SimpleEngineRepository simpleEngineRepository;
-    private static UserRepository userRepository;
+    private static SimpleUserRepository simpleUserRepository;
 
     @BeforeAll
     public static void init() {
@@ -27,7 +27,7 @@ class SimplePostRepositoryTest {
         simplePhotoRepository = new SimplePhotoRepository(new CrudRepository(sessionFactory));
         simpleCarRepository = new SimpleCarRepository(new CrudRepository(sessionFactory));
         simpleEngineRepository = new SimpleEngineRepository(new CrudRepository(sessionFactory));
-        userRepository = new UserRepository(new CrudRepository(sessionFactory));
+        simpleUserRepository = new SimpleUserRepository(new CrudRepository(sessionFactory));
     }
 
     @AfterAll
@@ -41,9 +41,9 @@ class SimplePostRepositoryTest {
         for (Post post : posts) {
             simplePostRepository.deleteById(post.getId());
         }
-        List<User> users = userRepository.findAllOrderById();
+        List<User> users = simpleUserRepository.findAllOrderById();
         for (User user : users) {
-            userRepository.delete(user.getId());
+            simpleUserRepository.delete(user.getId());
         }
     }
 
@@ -96,21 +96,20 @@ class SimplePostRepositoryTest {
     }
 
     @Test
-    void whenFindPostsByCarNameThenGetList() {
+    void whenFindPostsByCarModelThenGetList() {
         Post post1 = getPost1();
         post1.setCar(getCarWithPhoto());
         Post post2 = getPost2();
         post2.setCar(getCarWithoutPhoto());
         simplePostRepository.save(post1);
         simplePostRepository.save(post2);
-        assertThat(simplePostRepository.findByCarName("Acura")).isEqualTo(List.of(post1));
+        assertThat(simplePostRepository.findByCarModel("Accord")).isEqualTo(List.of(post1));
     }
 
     private Post getPost1() {
         Post post = new Post();
         post.setDescription("Description1");
         post.setCreated(LocalDateTime.now());
-        post.setUser(getUser1());
         return post;
     }
 
@@ -118,38 +117,21 @@ class SimplePostRepositoryTest {
         Post post = new Post();
         post.setDescription("Description2");
         post.setCreated(LocalDateTime.now().minusDays(7));
-        post.setUser(getUser2());
         return post;
-    }
-
-    private User getUser1() {
-        User user = new User();
-        user.setLogin("User1");
-        user.setPassword("password");
-        userRepository.create(user);
-        return user;
-    }
-
-    private User getUser2() {
-        User user = new User();
-        user.setLogin("User2");
-        user.setPassword("password");
-        userRepository.create(user);
-        return user;
     }
 
     private Car getCarWithPhoto() {
         Car car = new Car();
-        car.setPhotos(List.of(getPhoto()));
-        car.setName("Acura");
+        car.setModel("Accord");
         car.setEngine(getEngine());
+        car.setPhotos(List.of(getPhoto()));
         simpleCarRepository.save(car);
         return car;
     }
 
     private Car getCarWithoutPhoto() {
         Car car = new Car();
-        car.setName("Honda");
+        car.setModel("TSX");
         car.setEngine(getEngine());
         simpleCarRepository.save(car);
         return car;

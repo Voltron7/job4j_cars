@@ -4,13 +4,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.junit.jupiter.api.*;
-import ru.job4j.cars.model.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import ru.job4j.cars.model.User;
 import java.util.List;
 import java.util.Optional;
 import static org.assertj.core.api.Assertions.*;
 
-class UserRepositoryTest {
+class SimpleUserRepositoryTest {
     private static StandardServiceRegistry registry;
     private static UserRepository userRepository;
 
@@ -18,7 +21,7 @@ class UserRepositoryTest {
     public static void init() {
         registry = new StandardServiceRegistryBuilder().configure().build();
         SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        userRepository = new UserRepository(new CrudRepository(sessionFactory));
+        userRepository = new SimpleUserRepository(new CrudRepository(sessionFactory));
     }
 
     @AfterAll

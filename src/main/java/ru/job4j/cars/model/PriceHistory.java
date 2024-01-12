@@ -15,7 +15,7 @@ public class PriceHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
-    private long before;
-    private long after;
+    private int before;
+    private int after;
     private LocalDateTime created;
 }

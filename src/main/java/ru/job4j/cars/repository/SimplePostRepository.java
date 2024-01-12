@@ -60,10 +60,18 @@ public class SimplePostRepository implements PostRepository {
         );
     }
 
-    public List<Post> findByCarName(String name) {
+    public List<Post> findByCarModel(String model) {
         return crudRepository.query(
-                "from Post where car.name = :fName", Post.class,
-                Map.of("fName", name)
+                "from Post where car.model = :fModel", Post.class,
+                Map.of("fModel", model)
         );
+    }
+
+    @Override
+    public boolean setStatus(Post post) {
+        crudRepository.run("update Post set status = :fStatus where id = :fId",
+                Map.of("fStatus", true, "fId", post.getId())
+        );
+        return true;
     }
 }

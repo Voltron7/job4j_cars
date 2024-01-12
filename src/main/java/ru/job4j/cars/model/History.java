@@ -6,8 +6,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "history_owners")
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 public class History {

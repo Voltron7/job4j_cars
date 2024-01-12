@@ -45,4 +45,11 @@ public class SimpleCarRepository implements CarRepository {
     public List<Car> findAll() {
         return crudRepository.query("from Car order by id asc", Car.class);
     }
+
+    @Override
+    public Car getCarWithPhoto(int id) {
+        return crudRepository.optional("SELECT c FROM Car c LEFT JOIN FETCH c.photos WHERE c.id = :fId", Car.class,
+                Map.of("fId", id)
+        ).get();
+    }
 }

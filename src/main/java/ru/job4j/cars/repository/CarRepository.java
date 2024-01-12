@@ -15,4 +15,6 @@ public interface CarRepository {
     Optional<Car> findById(int id);
 
     List<Car> findAll();
+
+    Car getCarWithPhoto(int id);
 }
