@@ -45,8 +45,7 @@ public class SimplePostRepository implements PostRepository {
 
     @Override
     public List<Post> findAll() {
-        return crudRepository.query("from Post p LEFT JOIN FETCH p.priceHistoryList "
-                + "LEFT JOIN FETCH p.participates order by id asc", Post.class);
+        return crudRepository.query("from Post order by id asc", Post.class);
     }
 
     public List<Post> findAllForTheLastDay() {

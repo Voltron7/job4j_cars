@@ -19,7 +19,6 @@ public class Post {
     @EqualsAndHashCode.Include
     private int id;
     private String description;
-    @CreationTimestamp
     private LocalDateTime created;
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
