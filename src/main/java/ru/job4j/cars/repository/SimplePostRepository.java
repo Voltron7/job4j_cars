@@ -37,19 +37,22 @@ public class SimplePostRepository implements PostRepository {
     @Override
     public Optional<Post> findById(int id) {
         return crudRepository.optional(
-                "from Post where id = :fId", Post.class,
+                "from Post p LEFT JOIN FETCH p.priceHistoryList LEFT JOIN FETCH p.participates "
+                        + "where p.id = :fId", Post.class,
                 Map.of("fId", id)
         );
     }
 
     @Override
     public List<Post> findAll() {
-        return crudRepository.query("from Post order by id asc", Post.class);
+        return crudRepository.query("from Post p LEFT JOIN FETCH p.priceHistoryList "
+                + "LEFT JOIN FETCH p.participates order by id asc", Post.class);
     }
 
     public List<Post> findAllForTheLastDay() {
         return crudRepository.query(
-                "from Post where created >= :fDate", Post.class,
+                "from Post p LEFT JOIN FETCH p.priceHistoryList LEFT JOIN FETCH p.participates "
+                        + "where p.created >= :fDate", Post.class,
                 Map.of("fDate", LocalDateTime.now().minusDays(1))
         );
     }

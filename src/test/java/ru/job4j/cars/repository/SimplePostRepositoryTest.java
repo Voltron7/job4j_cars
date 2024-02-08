@@ -17,7 +17,6 @@ class SimplePostRepositoryTest {
     private static SimplePhotoRepository simplePhotoRepository;
     private static SimpleCarRepository simpleCarRepository;
     private static SimpleEngineRepository simpleEngineRepository;
-    private static SimpleUserRepository simpleUserRepository;
 
     @BeforeAll
     public static void init() {
@@ -27,7 +26,6 @@ class SimplePostRepositoryTest {
         simplePhotoRepository = new SimplePhotoRepository(new CrudRepository(sessionFactory));
         simpleCarRepository = new SimpleCarRepository(new CrudRepository(sessionFactory));
         simpleEngineRepository = new SimpleEngineRepository(new CrudRepository(sessionFactory));
-        simpleUserRepository = new SimpleUserRepository(new CrudRepository(sessionFactory));
     }
 
     @AfterAll
@@ -40,10 +38,6 @@ class SimplePostRepositoryTest {
         List<Post> posts = simplePostRepository.findAll();
         for (Post post : posts) {
             simplePostRepository.deleteById(post.getId());
-        }
-        List<User> users = simpleUserRepository.findAllOrderById();
-        for (User user : users) {
-            simpleUserRepository.delete(user.getId());
         }
     }
 

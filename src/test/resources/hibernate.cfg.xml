@@ -5,14 +5,13 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.h2.Driver</property>
-        <property name="hibernate.connection.url">jdbc:h2:./testdb</property>
+        <property name="hibernate.connection.url">jdbc:h2:./testdb;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;</property>
         <property name="hibernate.connection.username"></property>
         <property name="hibernate.connection.password"></property>
         <property name="hibernate.connection.pool_size">1</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
-        <property name="connection.autocommit">false</property>
 
         <mapping class="ru.job4j.cars.model.User" />
         <mapping class="ru.job4j.cars.model.Post" />
