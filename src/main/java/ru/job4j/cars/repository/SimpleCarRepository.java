@@ -36,7 +36,7 @@ public class SimpleCarRepository implements CarRepository {
     @Override
     public Optional<Car> findById(int id) {
         return crudRepository.optional(
-                "from Car where id = :fId", Car.class,
+                "from Car c LEFT JOIN FETCH c.owners LEFT JOIN FETCH c.photos where c.id = :fId", Car.class,
                 Map.of("fId", id)
         );
     }

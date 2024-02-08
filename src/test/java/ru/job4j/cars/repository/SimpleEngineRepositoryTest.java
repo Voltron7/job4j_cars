@@ -26,14 +26,6 @@ class SimpleEngineRepositoryTest {
         StandardServiceRegistryBuilder.destroy(registry);
     }
 
-    @AfterEach
-    public void deleteEngines() {
-        List<Engine> engines = simpleEngineRepository.findAll();
-        for (Engine engine : engines) {
-            simpleEngineRepository.deleteById(engine.getId());
-        }
-    }
-
     @Test
     public void whenAddNewEngineThenInEngineRepositoryTheSameEngine() {
         var engine = getEngine();

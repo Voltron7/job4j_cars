@@ -14,8 +14,6 @@ class SimpleCarRepositoryTest {
     private static StandardServiceRegistry registry;
     private static SimpleCarRepository simpleCarRepository;
     private static SimpleEngineRepository simpleEngineRepository;
-    private static SimpleUserRepository simpleUserRepository;
-    private static SimpleOwnerRepository simpleOwnerRepository;
 
     @BeforeAll
     public static void init() {
@@ -23,21 +21,11 @@ class SimpleCarRepositoryTest {
         SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
         simpleCarRepository = new SimpleCarRepository(new CrudRepository(sessionFactory));
         simpleEngineRepository = new SimpleEngineRepository(new CrudRepository(sessionFactory));
-        simpleUserRepository = new SimpleUserRepository(new CrudRepository(sessionFactory));
-        simpleOwnerRepository = new SimpleOwnerRepository(new CrudRepository(sessionFactory));
     }
 
     @AfterAll
     public static void closeConnection() {
         StandardServiceRegistryBuilder.destroy(registry);
-    }
-
-    @AfterEach
-    public void deleteCars() {
-        List<Car> cars = simpleCarRepository.findAll();
-        for (Car car : cars) {
-            simpleCarRepository.deleteById(car.getId());
-        }
     }
 
     @Test

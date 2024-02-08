@@ -2,10 +2,7 @@ package ru.job4j.cars.model;
 
 import lombok.*;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "cars")
@@ -41,10 +38,7 @@ public class Car {
             joinColumns = {@JoinColumn(name = "car_id")},
             inverseJoinColumns = {@JoinColumn(name = "owner_id")}
     )
-    private List<Owner> owners = new ArrayList<>();
-
-    @OneToMany(mappedBy = "car")
-    private Set<History> history = new HashSet<>();
+    private Set<Owner> owners = new LinkedHashSet<>();
 
     @OneToMany
     @JoinColumn(name = "car_id")
